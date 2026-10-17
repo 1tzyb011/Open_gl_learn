@@ -12,6 +12,7 @@ find_package(glfw3 REQUIRED)
 add_executable(LearnOpenGL
         main.cpp
         glad.c
+        Headers/Shader.h
 )
 
 target_include_directories(LearnOpenGL PRIVATE
