@@ -51,9 +51,10 @@ int main() {
     Shader ourShader("Triangle.vert", "Triangle.frag");
 
 
+
     unsigned int VAO,VBO;
-    glGenVertexArrays(2, &VAO);
-    glGenBuffers(2, &VBO);
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
 
     // First triangle
     glBindVertexArray(VAO);

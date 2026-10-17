@@ -12,15 +12,24 @@ find_package(glfw3 REQUIRED)
 add_executable(LearnOpenGL
         main.cpp
         glad.c
-        Headers/Shader.h
 )
 
 target_include_directories(LearnOpenGL PRIVATE
-        ../include
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/../include
 )
 
 target_link_libraries(LearnOpenGL PRIVATE
         glfw
         OpenGL::GL
+        ${CMAKE_DL_LIBS}
 )
 
+# Copy shaders next to the executable on every build
+add_custom_target(copy_shaders ALL
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${CMAKE_CURRENT_SOURCE_DIR}/Triangle.vert
+        ${CMAKE_CURRENT_SOURCE_DIR}/Triangle.frag
+        $<TARGET_FILE_DIR:LearnOpenGL>
+)
+add_dependencies(LearnOpenGL copy_shaders)
