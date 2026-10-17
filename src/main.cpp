@@ -1,7 +1,7 @@
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-
+#include <cmath>
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
@@ -46,25 +46,19 @@ int main() {
         1,2,3
     };
 
-    const char *vertexShaderSource = "#version 330 core\n"
-        "layout (location = 0) in vec3 aPos;\n"
-        "void main()\n"
-        "{\n"
-        "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-        "}\0";
+    const char *vertexShaderSource ="#version 330 core\n"
+     "layout (location = 0) in vec3 aPos;\n"
+     "void main()\n"
+     "{\n"
+     "   gl_Position = vec4(aPos, 1.0);\n"
+     "}\0";
 
     const char *fragmentShaderSource = "#version 330 core\n"
         "out vec4 FragColor;\n"
+        "uniform vec4 ourColor;\n"
         "void main()\n"
         "{\n"
-        "   FragColor = vec4(1.0f,0.5f,0.2f,1.0f);\n"
-        "}\0";
-
-    const char *fragmentShader2Source = "#version 330 core\n"
-        "out vec4 FragColor;\n"
-        "void main()\n"
-        "{\n"
-        "   FragColor = vec4(1.0f, 1.0f, 0.0f, 1.0f);\n"
+        "   FragColor = ourColor;\n"
         "}\n\0";
 
 
@@ -141,6 +135,12 @@ int main() {
         //draw triangle
         glUseProgram(shaderProgram);
         glBindVertexArray(VAO);
+
+        double TimeValue = glfwGetTime();
+        float greenValue = static_cast<float>(sin(TimeValue) / 2.0 + 0.5);
+        int vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
+        glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
+
         glDrawArrays(GL_TRIANGLES, 0, 3);
 
         //display rendered events
