@@ -12,6 +12,8 @@ find_package(glfw3 REQUIRED)
 add_executable(LearnOpenGL
         main.cpp
         glad.c
+        ../include/stb_image.h
+        stb_image.cpp
 )
 
 target_include_directories(LearnOpenGL PRIVATE
