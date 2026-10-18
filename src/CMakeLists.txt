@@ -14,6 +14,7 @@ add_executable(LearnOpenGL
         glad.c
         ../include/stb_image.h
         stb_image.cpp
+
 )
 
 target_include_directories(LearnOpenGL PRIVATE
